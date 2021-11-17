@@ -13,15 +13,23 @@ import MyButton from "./src/components/customButton";
 export default function App() {
   const [fullText, setText] = useState("");
   const [getList, setList] = useState([]);
+  const [editText, setEditText] = useState(false);
 
   const addText = () => {
     setList([...getList, { key: Math.random().toString(), data: fullText }]);
     setText("");
   };
-
+  const deleteItem = function (index) {
+    const newList = [...getlist];
+    newList.splice(index, 1);
+    setList(newList);
+  };
   const removeItem = (itemkey) => {
     const list = getList.filter((item) => item.key != itemkey);
     setList(list);
+  };
+  const editItem = (item) => {
+    setText(item.data);
   };
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -36,39 +44,49 @@ export default function App() {
           />
         </View>
         <View>
-          <MyButton 
-          onPressEvent={addText}
-           Text="Add"
-           color="black"
-           TextSize={16}
-           TextColor="white"
-           />
-          </View>
+          <MyButton
+            onPressEvent={addText}
+            // Text={editItem === false ? "Add" : "Update"}
+            Text="Add"
+            backColor="black"
+            TextSize={16}
+            TextColor="white"
+            disabled={fullText.length <= 0}
+          />
+        </View>
       </View>
       <View>
         <Text style={{ fontSize: 26, color: "black" }}>{fullText}</Text>
         {getList.map(function (item, index) {
           return (
-              <TouchableOpacity
-                key={item.key}
-                onPress={() => {
-                  removeItem(item.key);
-                }}
-              >
-                <View style={styles.itemContainer}>
+            <TouchableOpacity
+              key={item.key}
+              // onPress={() => {
+              //   removeItem(item.key);
+              // }}
+            >
+              <View style={styles.itemContainer}>
+                <View style={{ width: 200 }}>
                   <Text style={{ fontSize: 22, color: "white" }}>
                     {index + 1}#: {item.data}
                   </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      removeItem(item.key);
-                    }}
-                    style={styles.deletButton}
-                  >
-                    <Text style={{ color: "white" }}>Delete</Text>
-                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    removeItem(item.key);
+                  }}
+                  style={styles.deletButton}
+                >
+                  <Text style={{ color: "white" }}>Delete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => editItem(item)}
+                >
+                  <Text style={styles.editedText}>Edit</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         })}
       </View>
@@ -100,18 +118,17 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderBottomWidth: 2,
   },
-  
   addText: {
     color: "white",
   },
   itemContainer: {
     flexDirection: "row",
+    backgroundColor: "orange",
     justifyContent: "space-around",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "orange",
     height: 50,
-    width: 300,
+    width: 400,
     borderRadius: 10,
   },
   deletButton: {
@@ -121,10 +138,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  editButton: {
+    backgroundColor: "green",
+    height: 30,
+    width: 60,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  editedText: {
+    color: "white",
+  },
 });
 
 //   const [list, setList] = useState([]);
-
 //   const [fullName, setName] = useState("");
 //   const [update, setUpdate] = useState(false);
 //   const [add, setAdd] = useState(true);
@@ -136,31 +162,31 @@ const styles = StyleSheet.create({
 //     console.log(fullName);
 //   };
 
-//   const aadd = () => {
-//     const newList = [...list];
-//     newList.push(fullName);
-//     setList(newList);
-//   };
+// const aadd = () => {
+//   const newList = [...list];
+//   newList.push(fullName);
+//   setList(newList);
+// };
 
-//   const deleteItem = function (index) {
-//     const newList = [...list];
-//     newList.splice(index, 1);
-//     setList(newList);
-//   };
+// const deleteItem = function (index) {
+//   const newList = [...list];
+//   newList.splice(index, 1);
+//   setList(newList);
+// };
 
-//   const editItem = function (index) {
-//     setAdd(false);
-//     const newList = [...list];
-//     setName(fullName);
+// const editItem = function (index) {
+//   setAdd(false);
+//   const newList = [...list];
+//   setName(fullName);
 
-//     // console.log(index)
-//     // const newEdited = [...editedindex]
-//     setEditedindex(index);
-//     console.log(editedindex);
-//     const edit = newList[index];
-//     setName(edit);
-//     setUpdate(true);
-//   };
+//   // console.log(index)
+//   // const newEdited = [...editedindex]
+//   setEditedindex(index);
+//   console.log(editedindex);
+//   const edit = newList[index];
+//   setName(edit);
+//   setUpdate(true);
+// };
 
 //   return (
 //     <ScrollView>
