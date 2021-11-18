@@ -54,11 +54,11 @@ export default function App() {
         <Text style={{ fontSize: 26, color: "black" }}>{fullText}</Text>
         {getList.map(function (item, index) {
           return (
-            <TouchableOpacity key={item.key}>
+            <TouchableOpacity disabled={true} key={item.key}>
               <View style={styles.itemContainer}>
                 <View style={{ width: 200 }}>
                   <Text style={{ fontSize: 22, color: "white" }}>
-                    {index + 1}#: {item.data}
+                    {index + 1} : {item.data}
                   </Text>
                 </View>
                 <TouchableOpacity
@@ -71,8 +71,7 @@ export default function App() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.editButton}
-                  onPress={() => editItem(item)}
-                >
+                  onPress={() => editItem(item)}>
                   <Text style={styles.editedText}>Edit</Text>
                 </TouchableOpacity>
               </View>
@@ -102,9 +101,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "black",
-    fontSize: 15,
+    fontSize: 18,
     height: 50,
-    width: 300,
+    width: 280,
     paddingLeft: 10,
     borderBottomWidth: 2,
   },

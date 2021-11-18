@@ -1,5 +1,4 @@
 import React from "react";
-// import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default function MyButton(props) {
@@ -26,14 +25,10 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     paddingHorizontal: 20,
     padding: 10,
-    borderRadius: 50,
-    // width: 70,
-    // height: 50,
-    // alignItems: "center",
-    // justifyContent: "center",
+    borderRadius: 10,
   },
   buttonText: {
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
   },
 });
